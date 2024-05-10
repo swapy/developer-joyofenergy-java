@@ -38,7 +38,7 @@ public class PricePlanComparatorController {
     Optional<Map<String, BigDecimal>> consumptionsForPricePlans =
         pricePlanService.getConsumptionCostOfElectricityReadingsForEachPricePlan(smartMeterId);
 
-    if (!consumptionsForPricePlans.isPresent()) {
+    if (consumptionsForPricePlans.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -58,7 +58,7 @@ public class PricePlanComparatorController {
     Optional<Map<String, BigDecimal>> consumptionsForPricePlans =
         pricePlanService.getConsumptionCostOfElectricityReadingsForEachPricePlan(smartMeterId);
 
-    if (!consumptionsForPricePlans.isPresent()) {
+    if (consumptionsForPricePlans.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
