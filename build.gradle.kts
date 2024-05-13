@@ -66,11 +66,18 @@ val functionalTest = task<Test>("functionalTest") {
 dependencies {
     /* Spring Boot */
     implementation ("org.springframework.boot:spring-boot-starter-web")
-    compileOnly("org.projectlombok:lombok")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
+    implementation("org.springframework.boot:spring-boot-devtools")
+
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude (group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("org.assertj:assertj-core")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 
 }
 

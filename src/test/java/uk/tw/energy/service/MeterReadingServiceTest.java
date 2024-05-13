@@ -1,31 +1,40 @@
 package uk.tw.energy.service;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uk.tw.energy.domain.ElectricityReading;
+import uk.tw.energy.domain.MeterReadings;
+import uk.tw.energy.infrastructure.error.types.NotFoundException;
 
-public class MeterReadingServiceTest {
+class MeterReadingServiceTest {
 
   private MeterReadingService meterReadingService;
 
   @BeforeEach
   public void setUp() {
-    meterReadingService = new MeterReadingService(new HashMap<>());
+    meterReadingService = new MeterReadingService();
   }
 
   @Test
-  public void givenMeterIdThatDoesNotExistShouldReturnNull() {
-    assertThat(meterReadingService.getReadings("unknown-id")).isEqualTo(Optional.empty());
+  void givenMeterIdThatDoesNotExistShouldThrowException() {
+    assertThatThrownBy(() -> meterReadingService.getReadings("unknown-id"))
+        .isInstanceOf(NotFoundException.class);
   }
 
   @Test
-  public void givenMeterReadingThatExistsShouldReturnMeterReadings() {
-    meterReadingService.storeReadings("random-id", new ArrayList<>());
+  void givenMeterReadingThatExistsShouldReturnMeterReadings() {
+    ElectricityReading electricityReading = new ElectricityReading(Instant.now(), BigDecimal.ONE);
+    List<ElectricityReading> readings = List.of(electricityReading);
+
+    meterReadingService.storeReadings(new MeterReadings("random-id", readings));
+
     assertThat(meterReadingService.getReadings("random-id"))
-        .isEqualTo(Optional.of(new ArrayList<>()));
+        .containsExactlyInAnyOrderElementsOf(readings);
   }
 }
