@@ -9,7 +9,7 @@ import uk.tw.energy.infrastructure.error.ErrorCode;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class NotFoundException extends GenericException {
 
-  public NotFoundException(ErrorCode errorCode, String message) {
-    super(errorCode, message);
-  }
+    public NotFoundException(ErrorCode errorCode, String message) {
+        super(errorCode, message);
+    }
 }

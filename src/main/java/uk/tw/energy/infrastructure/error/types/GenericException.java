@@ -6,10 +6,10 @@ import uk.tw.energy.infrastructure.error.ErrorCode;
 @Getter
 public class GenericException extends RuntimeException {
 
-  private final ErrorCode errorCode;
+    private final ErrorCode errorCode;
 
-  public GenericException(ErrorCode errorCode, String message) {
-    super(message);
-    this.errorCode = errorCode;
-  }
+    public GenericException(ErrorCode errorCode, String message) {
+        super(message);
+        this.errorCode = errorCode;
+    }
 }

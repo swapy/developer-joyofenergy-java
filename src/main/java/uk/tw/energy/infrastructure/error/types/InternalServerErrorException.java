@@ -7,7 +7,7 @@ import uk.tw.energy.infrastructure.error.ErrorCode;
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 public class InternalServerErrorException extends GenericException {
 
-  public InternalServerErrorException(ErrorCode errorCode, String message) {
-    super(errorCode, message);
-  }
+    public InternalServerErrorException(ErrorCode errorCode, String message) {
+        super(errorCode, message);
+    }
 }

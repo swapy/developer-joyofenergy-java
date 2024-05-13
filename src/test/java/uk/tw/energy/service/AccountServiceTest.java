@@ -1,30 +1,32 @@
 package uk.tw.energy.service;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import uk.tw.energy.service.pricing.AccountService;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-public class AccountServiceTest {
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-  private static final String PRICE_PLAN_ID = "price-plan-id";
-  private static final String SMART_METER_ID = "smart-meter-id";
+class AccountServiceTest {
 
-  private AccountService accountService;
+    private static final String PRICE_PLAN_ID = "price-plan-id";
+    private static final String SMART_METER_ID = "smart-meter-id";
 
-  @BeforeEach
-  public void setUp() {
-    Map<String, String> smartMeterToPricePlanAccounts = new HashMap<>();
-    smartMeterToPricePlanAccounts.put(SMART_METER_ID, PRICE_PLAN_ID);
+    private AccountService accountService;
 
-    accountService = new AccountService(smartMeterToPricePlanAccounts);
-  }
+    @BeforeEach
+    public void setUp() {
+        Map<String, String> smartMeterToPricePlanAccounts = new HashMap<>();
+        smartMeterToPricePlanAccounts.put(SMART_METER_ID, PRICE_PLAN_ID);
 
-  @Test
-  public void givenTheSmartMeterIdReturnsThePricePlanId() throws Exception {
-    assertThat(accountService.getPricePlanIdForSmartMeterId(SMART_METER_ID))
-        .isEqualTo(PRICE_PLAN_ID);
-  }
+        accountService = new AccountService(smartMeterToPricePlanAccounts);
+    }
+
+    @Test
+    void givenTheSmartMeterIdReturnsThePricePlanId() throws Exception {
+        assertThat(accountService.getPricePlanIdForSmartMeterId(SMART_METER_ID))
+                .isEqualTo(PRICE_PLAN_ID);
+    }
 }

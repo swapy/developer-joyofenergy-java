@@ -12,37 +12,37 @@ import uk.tw.energy.infrastructure.error.types.NotFoundException;
 @Slf4j
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(BadRequestException.class)
-  ErrorMessage handleBadRequest(BadRequestException ex) {
-    final ErrorCode errorCode = ex.getErrorCode();
-    log.error(
-        "Bad request error with error code: {} with details : {}", ex.getMessage(), errorCode);
-    return new ErrorMessage(errorCode.name(), "Bad request!");
-  }
-
-  @ExceptionHandler({NotFoundException.class})
-  ErrorMessage handleNotFound(Exception ex) {
-    if (ex instanceof GenericException genericException) {
-      final ErrorCode errorCode = genericException.getErrorCode();
-      log.error(
-          "Not found error with error code: {} with details : {}", ex.getMessage(), errorCode);
-      return new ErrorMessage(errorCode.name(), "Not found!");
-    }
-    return new ErrorMessage("NOT_FOUND", "Resource not found");
-  }
-
-  @ExceptionHandler(value = {InternalServerErrorException.class})
-  ErrorMessage handleInternalServerError(Exception ex) {
-    final String message = "Server error occurred!";
-    if (ex instanceof GenericException genericException) {
-      final ErrorCode errorCode = genericException.getErrorCode();
-      log.error(
-          "Internal server error with error code: {} with details : {}",
-          ex.getMessage(),
-          errorCode);
-      return new ErrorMessage(errorCode.name(), message);
+    @ExceptionHandler(BadRequestException.class)
+    ErrorMessage handleBadRequest(BadRequestException ex) {
+        final ErrorCode errorCode = ex.getErrorCode();
+        log.error(
+                "Bad request error with error code: {} with details : {}", ex.getMessage(), errorCode);
+        return new ErrorMessage(errorCode.name(), "Bad request!");
     }
 
-    return new ErrorMessage("SERVER_ERROR", message);
-  }
+    @ExceptionHandler({NotFoundException.class})
+    ErrorMessage handleNotFound(Exception ex) {
+        if (ex instanceof GenericException genericException) {
+            final ErrorCode errorCode = genericException.getErrorCode();
+            log.error(
+                    "Not found error with error code: {} with details : {}", ex.getMessage(), errorCode);
+            return new ErrorMessage(errorCode.name(), "Not found!");
+        }
+        return new ErrorMessage("NOT_FOUND", "Resource not found");
+    }
+
+    @ExceptionHandler(value = {InternalServerErrorException.class})
+    ErrorMessage handleInternalServerError(Exception ex) {
+        final String message = "Server error occurred!";
+        if (ex instanceof GenericException genericException) {
+            final ErrorCode errorCode = genericException.getErrorCode();
+            log.error(
+                    "Internal server error with error code: {} with details : {}",
+                    ex.getMessage(),
+                    errorCode);
+            return new ErrorMessage(errorCode.name(), message);
+        }
+
+        return new ErrorMessage("SERVER_ERROR", message);
+    }
 }
