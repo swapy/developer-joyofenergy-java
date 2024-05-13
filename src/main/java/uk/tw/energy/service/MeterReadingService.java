@@ -1,7 +1,6 @@
 package uk.tw.energy.service;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Service;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
@@ -11,8 +10,11 @@ import uk.tw.energy.infrastructure.error.types.NotFoundException;
 @Service
 public class MeterReadingService {
 
-  private final Map<String, List<ElectricityReading>> meterAssociatedReadings =
-      new ConcurrentHashMap<>();
+  private final Map<String, List<ElectricityReading>> meterAssociatedReadings;
+
+  public MeterReadingService(Map<String, List<ElectricityReading>> meterAssociatedReadings) {
+    this.meterAssociatedReadings = meterAssociatedReadings;
+  }
 
   public List<ElectricityReading> getReadings(String smartMeterId) {
     final List<ElectricityReading> electricityReadings = meterAssociatedReadings.get(smartMeterId);

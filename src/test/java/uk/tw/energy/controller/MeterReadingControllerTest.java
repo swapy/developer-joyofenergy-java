@@ -3,7 +3,7 @@ package uk.tw.energy.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,29 +21,8 @@ class MeterReadingControllerTest {
 
   @BeforeEach
   public void setUp() {
-    this.meterReadingService = new MeterReadingService();
+    this.meterReadingService = new MeterReadingService(new HashMap<>());
     this.meterReadingController = new MeterReadingController(meterReadingService);
-  }
-
-  @Test
-  void givenNoMeterIdIsSuppliedWhenStoringShouldReturnErrorResponse() {
-    MeterReadings meterReadings = new MeterReadings(null, Collections.emptyList());
-    assertThat(meterReadingController.storeReadings(meterReadings).getStatusCode())
-        .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-
-  @Test
-  void givenEmptyMeterReadingShouldReturnErrorResponse() {
-    MeterReadings meterReadings = new MeterReadings(SMART_METER_ID, Collections.emptyList());
-    assertThat(meterReadingController.storeReadings(meterReadings).getStatusCode())
-        .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-
-  @Test
-  void givenNullReadingsAreSuppliedWhenStoringShouldReturnErrorResponse() {
-    MeterReadings meterReadings = new MeterReadings(SMART_METER_ID, null);
-    assertThat(meterReadingController.storeReadings(meterReadings).getStatusCode())
-        .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   @Test

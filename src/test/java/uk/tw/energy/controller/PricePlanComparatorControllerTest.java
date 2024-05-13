@@ -32,7 +32,7 @@ class PricePlanComparatorControllerTest {
 
   @BeforeEach
   public void setUp() {
-    meterReadingService = new MeterReadingService();
+    meterReadingService = new MeterReadingService(new HashMap<>());
     PricePlan pricePlan1 = new PricePlan(PRICE_PLAN_1_ID, null, BigDecimal.TEN, null);
     PricePlan pricePlan2 = new PricePlan(PRICE_PLAN_2_ID, null, BigDecimal.ONE, null);
     PricePlan pricePlan3 = new PricePlan(PRICE_PLAN_3_ID, null, BigDecimal.valueOf(2), null);

@@ -19,6 +19,7 @@ import uk.tw.energy.infrastructure.error.types.BadRequestException;
 
 class MeterReadingsValidatorTest {
 
+  public static final String SMART_0 = "smart-0";
   MeterReadingsValidator validator = new MeterReadingsValidator();
 
   @Test
@@ -48,7 +49,7 @@ class MeterReadingsValidatorTest {
   @Test
   void givenMeterReadingsValidThenReturnSuccessfully() {
     ElectricityReading electricityReading = new ElectricityReading(Instant.now(), BigDecimal.ONE);
-    MeterReadings meterReadings = new MeterReadings("smart-0", List.of(electricityReading));
+    MeterReadings meterReadings = new MeterReadings(SMART_0, List.of(electricityReading));
     assertThatNoException().isThrownBy(() -> validator.validateMeterReadings(meterReadings));
   }
 
@@ -63,7 +64,7 @@ class MeterReadingsValidatorTest {
   private static Stream<Arguments> electricityReadingsInvalid() {
     ElectricityReading electricityReading = new ElectricityReading(Instant.now(), BigDecimal.ONE);
     return Stream.of(
-        Arguments.of(new MeterReadings("smart-0", null), "null electricity readings"),
-        Arguments.of(new MeterReadings("smart-0", List.of()), "no electricity readings provided"));
+        Arguments.of(new MeterReadings(SMART_0, null), "null electricity readings"),
+        Arguments.of(new MeterReadings(SMART_0, List.of()), "no electricity readings provided"));
   }
 }

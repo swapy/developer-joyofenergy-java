@@ -17,3 +17,4 @@ Summary of changes and how they resolve the issue.
 - added business exceptions
 - added concurrent hashmap instead
 - added validator for readings
+- changed to concurrent hashmap instead

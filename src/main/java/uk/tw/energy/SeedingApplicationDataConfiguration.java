@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -40,7 +41,7 @@ public class SeedingApplicationDataConfiguration {
 
   @Bean
   public Map<String, List<ElectricityReading>> perMeterElectricityReadings() {
-    final Map<String, List<ElectricityReading>> readings = new HashMap<>();
+    final Map<String, List<ElectricityReading>> readings = new ConcurrentHashMap<>();
     final ElectricityReadingsGenerator electricityReadingsGenerator =
         new ElectricityReadingsGenerator();
     smartMeterToPricePlanAccounts()
