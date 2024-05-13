@@ -14,32 +14,32 @@ import java.util.Objects;
 @Service
 public class MeterReadingService {
 
-    private final Map<String, List<ElectricityReading>> meterAssociatedReadings;
+  private final Map<String, List<ElectricityReading>> meterAssociatedReadings;
 
-    public MeterReadingService(Map<String, List<ElectricityReading>> meterAssociatedReadings) {
-        this.meterAssociatedReadings = meterAssociatedReadings;
+  public MeterReadingService(Map<String, List<ElectricityReading>> meterAssociatedReadings) {
+    this.meterAssociatedReadings = meterAssociatedReadings;
+  }
+
+  public List<ElectricityReading> getReadings(String smartMeterId) {
+    final List<ElectricityReading> electricityReadings = meterAssociatedReadings.get(smartMeterId);
+
+    if (Objects.isNull(electricityReadings) || electricityReadings.isEmpty()) {
+      throw new NotFoundException(
+          ErrorCode.ERR006, "No meter readings found for given smart meter id");
     }
 
-    public List<ElectricityReading> getReadings(String smartMeterId) {
-        final List<ElectricityReading> electricityReadings = meterAssociatedReadings.get(smartMeterId);
+    return electricityReadings;
+  }
 
-        if (Objects.isNull(electricityReadings) || electricityReadings.isEmpty()) {
-            throw new NotFoundException(
-                    ErrorCode.ERR006, "No meter readings found for given smart meter id");
-        }
+  public void storeReadings(MeterReadings meterReadings) {
+    final MeterReadingsValidator validator = new MeterReadingsValidator();
+    validator.validateMeterReadings(meterReadings);
 
-        return electricityReadings;
-    }
+    final String smartMeterId = meterReadings.smartMeterId();
+    final List<ElectricityReading> electricityReadings = meterReadings.electricityReadings();
 
-    public void storeReadings(MeterReadings meterReadings) {
-        final MeterReadingsValidator validator = new MeterReadingsValidator();
-        validator.validateMeterReadings(meterReadings);
-
-        final String smartMeterId = meterReadings.smartMeterId();
-        final List<ElectricityReading> electricityReadings = meterReadings.electricityReadings();
-
-        final List<ElectricityReading> updatedReadings =
-                meterAssociatedReadings.computeIfAbsent(smartMeterId, s -> new ArrayList<>());
-        updatedReadings.addAll(electricityReadings);
-    }
+    final List<ElectricityReading> updatedReadings =
+        meterAssociatedReadings.computeIfAbsent(smartMeterId, s -> new ArrayList<>());
+    updatedReadings.addAll(electricityReadings);
+  }
 }

@@ -9,41 +9,38 @@ import java.util.List;
 
 public class PricePlan {
 
-    @Getter
-    private final String energySupplier;
-    @Getter
-    private final String planName;
-    @Getter
-    private final BigDecimal unitRate; // unit price per kWh
-    private final List<PeakTimeMultiplier> peakTimeMultipliers;
+  @Getter private final String energySupplier;
+  @Getter private final String planName;
+  @Getter private final BigDecimal unitRate; // unit price per kWh
+  private final List<PeakTimeMultiplier> peakTimeMultipliers;
 
-    public PricePlan(
-            String planName,
-            String energySupplier,
-            BigDecimal unitRate,
-            List<PeakTimeMultiplier> peakTimeMultipliers) {
-        this.planName = planName;
-        this.energySupplier = energySupplier;
-        this.unitRate = unitRate;
-        this.peakTimeMultipliers = peakTimeMultipliers;
+  public PricePlan(
+      String planName,
+      String energySupplier,
+      BigDecimal unitRate,
+      List<PeakTimeMultiplier> peakTimeMultipliers) {
+    this.planName = planName;
+    this.energySupplier = energySupplier;
+    this.unitRate = unitRate;
+    this.peakTimeMultipliers = peakTimeMultipliers;
+  }
+
+  public BigDecimal getPrice(LocalDateTime dateTime) {
+    return peakTimeMultipliers.stream()
+        .filter(multiplier -> multiplier.dayOfWeek.equals(dateTime.getDayOfWeek()))
+        .findFirst()
+        .map(multiplier -> unitRate.multiply(multiplier.multiplier))
+        .orElse(unitRate);
+  }
+
+  static class PeakTimeMultiplier {
+
+    DayOfWeek dayOfWeek;
+    BigDecimal multiplier;
+
+    public PeakTimeMultiplier(DayOfWeek dayOfWeek, BigDecimal multiplier) {
+      this.dayOfWeek = dayOfWeek;
+      this.multiplier = multiplier;
     }
-
-    public BigDecimal getPrice(LocalDateTime dateTime) {
-        return peakTimeMultipliers.stream()
-                .filter(multiplier -> multiplier.dayOfWeek.equals(dateTime.getDayOfWeek()))
-                .findFirst()
-                .map(multiplier -> unitRate.multiply(multiplier.multiplier))
-                .orElse(unitRate);
-    }
-
-    static class PeakTimeMultiplier {
-
-        DayOfWeek dayOfWeek;
-        BigDecimal multiplier;
-
-        public PeakTimeMultiplier(DayOfWeek dayOfWeek, BigDecimal multiplier) {
-            this.dayOfWeek = dayOfWeek;
-            this.multiplier = multiplier;
-        }
-    }
+  }
 }

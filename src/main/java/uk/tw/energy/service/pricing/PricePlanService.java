@@ -15,36 +15,41 @@ import java.util.stream.Collectors;
 @Service
 public class PricePlanService {
 
-    private final List<PricePlan> pricePlans;
-    private final MeterReadingService meterReadingService;
+  private final List<PricePlan> pricePlans;
+  private final MeterReadingService meterReadingService;
 
-    public PricePlanService(List<PricePlan> pricePlans, MeterReadingService meterReadingService) {
-        this.pricePlans = pricePlans;
-        this.meterReadingService = meterReadingService;
+  public PricePlanService(List<PricePlan> pricePlans, MeterReadingService meterReadingService) {
+    this.pricePlans = pricePlans;
+    this.meterReadingService = meterReadingService;
+  }
+
+  public Map<String, BigDecimal> getConsumptionCostOfElectricityReadingsForEachPricePlan(
+      String smartMeterId) {
+
+    final List<ElectricityReading> electricityReadings =
+        meterReadingService.getReadings(smartMeterId);
+
+    final CostCalculator costCalculator = new CostCalculator();
+    final Map<String, BigDecimal> consumptionsForPricePlans =
+        pricePlans.stream()
+            .collect(
+                Collectors.toMap(
+                    PricePlan::getPlanName,
+                    t -> costCalculator.calculateCost(electricityReadings, t)));
+
+    if (consumptionsForPricePlans.isEmpty()) {
+      throw new NotFoundException(
+          ErrorCode.ERR007, "No consumption costs found for given smart meter");
     }
 
-    public Map<String, BigDecimal> getConsumptionCostOfElectricityReadingsForEachPricePlan(
-            String smartMeterId) {
+    return consumptionsForPricePlans;
+  }
 
-        final List<ElectricityReading> electricityReadings =
-                meterReadingService.getReadings(smartMeterId);
-
-        final CostCalculator costCalculator = new CostCalculator();
-        final Map<String, BigDecimal> consumptionsForPricePlans = pricePlans.stream()
-                .collect(
-                        Collectors.toMap(
-                                PricePlan::getPlanName, t -> costCalculator.calculateCost(electricityReadings, t)));
-
-        if (consumptionsForPricePlans.isEmpty()) {
-            throw new NotFoundException(ErrorCode.ERR007, "No consumption costs found for given smart meter");
-        }
-
-        return consumptionsForPricePlans;
-    }
-
-    public List<Map.Entry<String, BigDecimal>> getRecommendations(String smartMeterId, Integer limit) {
-        final Map<String, BigDecimal> consumptionsForPricePlans = this.getConsumptionCostOfElectricityReadingsForEachPricePlan(smartMeterId);
-        final RecommendationService recommendationService = new RecommendationService();
-        return recommendationService.recommend(consumptionsForPricePlans, limit);
-    }
+  public List<Map.Entry<String, BigDecimal>> getRecommendations(
+      String smartMeterId, Integer limit) {
+    final Map<String, BigDecimal> consumptionsForPricePlans =
+        this.getConsumptionCostOfElectricityReadingsForEachPricePlan(smartMeterId);
+    final RecommendationService recommendationService = new RecommendationService();
+    return recommendationService.recommend(consumptionsForPricePlans, limit);
+  }
 }

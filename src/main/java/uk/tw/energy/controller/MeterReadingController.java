@@ -12,21 +12,21 @@ import java.util.List;
 @RequestMapping("/readings")
 public class MeterReadingController {
 
-    private final MeterReadingService meterReadingService;
+  private final MeterReadingService meterReadingService;
 
-    public MeterReadingController(MeterReadingService meterReadingService) {
-        this.meterReadingService = meterReadingService;
-    }
+  public MeterReadingController(MeterReadingService meterReadingService) {
+    this.meterReadingService = meterReadingService;
+  }
 
-    @PostMapping("/store")
-    public ResponseEntity<String> storeReadings(@RequestBody MeterReadings meterReadings) {
-        meterReadingService.storeReadings(meterReadings);
-        return ResponseEntity.ok("Success");
-    }
+  @PostMapping("/store")
+  public ResponseEntity<String> storeReadings(@RequestBody MeterReadings meterReadings) {
+    meterReadingService.storeReadings(meterReadings);
+    return ResponseEntity.ok("Success");
+  }
 
-    @GetMapping("/read/{smartMeterId}")
-    public ResponseEntity<List<ElectricityReading>> readReadings(@PathVariable String smartMeterId) {
-        final List<ElectricityReading> readings = meterReadingService.getReadings(smartMeterId);
-        return ResponseEntity.ok(readings);
-    }
+  @GetMapping("/read/{smartMeterId}")
+  public ResponseEntity<List<ElectricityReading>> readReadings(@PathVariable String smartMeterId) {
+    final List<ElectricityReading> readings = meterReadingService.getReadings(smartMeterId);
+    return ResponseEntity.ok(readings);
+  }
 }
