@@ -1,15 +1,14 @@
 package uk.tw.energy.service.meter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import org.springframework.stereotype.Service;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.infrastructure.error.ErrorCode;
 import uk.tw.energy.infrastructure.error.types.NotFoundException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @Service
 public class MeterReadingService {

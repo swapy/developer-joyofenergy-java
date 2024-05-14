@@ -1,5 +1,11 @@
 package uk.tw.energy.controller;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.tw.energy.domain.ElectricityReading;
@@ -9,13 +15,6 @@ import uk.tw.energy.infrastructure.error.types.NotFoundException;
 import uk.tw.energy.service.meter.MeterReadingService;
 import uk.tw.energy.service.pricing.AccountService;
 import uk.tw.energy.service.pricing.PricePlanService;
-
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.*;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class PricePlanComparatorControllerTest {
 

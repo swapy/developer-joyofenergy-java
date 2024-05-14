@@ -1,14 +1,13 @@
 package uk.tw.energy.service.pricing;
 
-import uk.tw.energy.domain.ElectricityReading;
-import uk.tw.energy.domain.PricePlan;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import uk.tw.energy.domain.ElectricityReading;
+import uk.tw.energy.domain.PricePlan;
 
 public class CostCalculator {
   public static final String DEFAULT_TIME = "0.0";

@@ -1,5 +1,12 @@
 package uk.tw.energy.service;
 
+import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,14 +16,6 @@ import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.infrastructure.error.ErrorCode;
 import uk.tw.energy.infrastructure.error.types.BadRequestException;
 import uk.tw.energy.service.meter.MeterReadingsValidator;
-
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThatNoException;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class MeterReadingsValidatorTest {
 

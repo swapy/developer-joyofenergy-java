@@ -1,8 +1,7 @@
 package uk.tw.energy.service.pricing;
 
-import org.springframework.stereotype.Service;
-
 import java.util.Map;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {

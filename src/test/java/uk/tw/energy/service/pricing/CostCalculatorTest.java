@@ -1,14 +1,13 @@
 package uk.tw.energy.service.pricing;
 
-import org.junit.jupiter.api.Test;
-import uk.tw.energy.domain.ElectricityReading;
-import uk.tw.energy.domain.PricePlan;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import org.junit.jupiter.api.Test;
+import uk.tw.energy.domain.ElectricityReading;
+import uk.tw.energy.domain.PricePlan;
 
 class CostCalculatorTest {
 

@@ -1,11 +1,10 @@
 package uk.tw.energy.builders;
 
+import java.util.ArrayList;
+import java.util.List;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.generator.ElectricityReadingsGenerator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MeterReadingsBuilder {
 

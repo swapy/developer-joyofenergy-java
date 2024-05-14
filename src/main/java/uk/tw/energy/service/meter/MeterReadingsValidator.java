@@ -1,14 +1,13 @@
 package uk.tw.energy.service.meter;
 
+import static uk.tw.energy.infrastructure.error.ErrorCode.*;
+
+import java.util.List;
+import java.util.Objects;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.infrastructure.error.ErrorCode;
 import uk.tw.energy.infrastructure.error.types.BadRequestException;
-
-import java.util.List;
-import java.util.Objects;
-
-import static uk.tw.energy.infrastructure.error.ErrorCode.*;
 
 // TODO can use hibernate validators instead at request level itself!
 public class MeterReadingsValidator {

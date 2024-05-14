@@ -1,12 +1,11 @@
 package uk.tw.energy.controller;
 
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.MeterReadings;
 import uk.tw.energy.service.meter.MeterReadingService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/readings")

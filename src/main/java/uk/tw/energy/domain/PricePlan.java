@@ -1,11 +1,10 @@
 package uk.tw.energy.domain;
 
-import lombok.Getter;
-
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.Getter;
 
 public class PricePlan {
 
