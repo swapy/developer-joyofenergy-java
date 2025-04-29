@@ -1,0 +1,6 @@
+fileignoreconfig:
+- filename: build.gradle.kts
+  checksum: af74e4ac21a74336d4c819bde466b2fd91e5d855c435419944ddd2c799259c98
+- filename: src/main/java/uk/tw/energy/controller/PricePlanComparatorController.java
+  checksum: 487ec0f04b0bbb83f5859321729bde8561a760814df6b71c8145593167b8e351
+version: "1.0"
