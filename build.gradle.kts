@@ -36,6 +36,10 @@ idea {
     }
 }
 
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-parameters")
+}
+
 val functionalTestImplementation: Configuration by configurations.getting {
     extendsFrom(configurations.implementation.get())
 }
@@ -58,16 +62,16 @@ val functionalTest = task<Test>("functionalTest") {
     useJUnitPlatform()
 
     testLogging {
-        events ("failed", "passed", "skipped", "standard_out")
+        events("failed", "passed", "skipped", "standard_out")
     }
 }
 
 
 dependencies {
     /* Spring Boot */
-    implementation ("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude (group = "org.junit.vintage", module = "junit-vintage-engine")
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
 }
 
@@ -75,7 +79,7 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 
     testLogging {
-        events ("failed", "passed", "skipped", "standard_out")
+        events("failed", "passed", "skipped", "standard_out")
     }
 }
 
@@ -92,7 +96,7 @@ tasks.withType<DependencyUpdatesTask> {
     rejectVersionIf {
         isNonStable(candidate.version)
     }
-    gradleReleaseChannel="current"
+    gradleReleaseChannel = "current"
 }
 
 spotless {
